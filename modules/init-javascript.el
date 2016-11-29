@@ -3,6 +3,18 @@
 (require 'js)
 (require 'js2-mode)
 (require 'init-prefs)
+(require 'flycheck)
+
+;;; Flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(setq flycheck-disabled-checkers '(javascript-jshint))
+(setq flycheck-checkers '(javascript-eslint))
+
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+(flycheck-add-mode 'javascript-eslint 'js2-mode)
+
+(setq-default flycheck-temp-prefix ".flycheck")
 
 ;;; Activate js2-mode and ac-js2 for auto-complete.
 
@@ -29,6 +41,7 @@
 ;; mode.
 
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 
 ;;; Bind M-C-g to helm-imenu (lists functions and variables in buffer)
 (when (fboundp 'js2-imenu-extras-mode)
